@@ -2,6 +2,7 @@
 import { computed, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import DeviceCodeModal from '../components/DeviceCodeModal.vue'
+import UserAvatar from '../components/UserAvatar.vue'
 import { useComposerStore } from '../stores/composer'
 import { useMessagesStore } from '../stores/messages'
 import { useRoomsStore } from '../stores/rooms'
@@ -114,12 +115,9 @@ watch(
           </div>
 
           <div class="connected">
-            <img
-              v-if="session.viewer?.avatarUrl"
-              class="connected__avatar"
-              :src="session.viewer.avatarUrl"
-              alt=""
-              referrerpolicy="no-referrer"
+            <UserAvatar
+              :login="session.login"
+              :src="session.viewer?.avatarUrl"
             />
             <div class="connected__meta">
               <strong>@{{ session.login }}</strong>

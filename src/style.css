@@ -628,12 +628,10 @@ textarea:focus-visible {
   margin-bottom: 14px;
 }
 
-.connected__avatar {
+.connected .avatar {
   width: 40px;
   height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 1px solid var(--border-strong);
+  border-color: var(--border-strong);
 }
 
 .connected__meta {
@@ -1042,6 +1040,39 @@ textarea:focus-visible {
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+.topbar__account {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 2px 10px 2px 2px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-2);
+  text-decoration: none;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.topbar__account:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: var(--border-strong);
+  color: var(--text);
+}
+
+.topbar__account .avatar {
+  width: 26px;
+  height: 26px;
+}
+
+.topbar__account-login {
+  max-width: 120px;
+  overflow: hidden;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .is-spinning svg {
@@ -1691,6 +1722,14 @@ kbd {
 
   .topbar__actions .badge {
     display: none;
+  }
+
+  .topbar__account-login {
+    display: none;
+  }
+
+  .topbar__account {
+    padding-right: 2px;
   }
 
   .banners {

@@ -4,12 +4,13 @@ import { useRouter } from 'vue-router'
 import Composer from '../components/Composer.vue'
 import MessageList from '../components/MessageList.vue'
 import RoomList from '../components/RoomList.vue'
+import UserAvatar from '../components/UserAvatar.vue'
 import { pollDelayMs, rateLimit } from '../github'
 import { useComposerStore } from '../stores/composer'
 import { useMessagesStore } from '../stores/messages'
 import { useRoomsStore } from '../stores/rooms'
 import { useSessionStore } from '../stores/session'
-import { formatRateReset, formatSyncTime, initials } from '../utils/format'
+import { formatRateReset, formatSyncTime } from '../utils/format'
 
 const props = defineProps<{ owner: string; repo: string }>()
 
@@ -286,16 +287,11 @@ onBeforeUnmount(() => {
       </div>
 
       <div class="sidebar__account">
-        <span class="avatar avatar--sm">
-          <span class="avatar__fallback">{{ initials(session.login) }}</span>
-          <img
-            v-if="session.viewer?.avatarUrl"
-            :src="session.viewer.avatarUrl"
-            alt=""
-            referrerpolicy="no-referrer"
-            @error="($event.target as HTMLImageElement).style.display = 'none'"
-          />
-        </span>
+        <UserAvatar
+          small
+          :login="session.login"
+          :src="session.viewer?.avatarUrl"
+        />
         <div class="sidebar__account-meta">
           <span class="sidebar__login">@{{ session.login }}</span>
           <span class="sidebar__token">{{ session.tokenBadge }}</span>
@@ -348,6 +344,16 @@ onBeforeUnmount(() => {
         </div>
 
         <div class="topbar__actions">
+          <a
+            class="topbar__account"
+            :href="`https://github.com/${session.login}`"
+            target="_blank"
+            rel="noopener noreferrer"
+            :title="`@${session.login} 的 GitHub 主页`"
+          >
+            <UserAvatar :login="session.login" :src="session.viewer?.avatarUrl" />
+            <span class="topbar__account-login">@{{ session.login }}</span>
+          </a>
           <span class="badge">{{ session.tokenBadge }}</span>
           <button
             class="icon-btn"

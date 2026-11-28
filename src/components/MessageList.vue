@@ -2,8 +2,9 @@
 import { computed, nextTick, ref, watch } from 'vue'
 import type { ChatMessage } from '../types'
 import type { ErrorCopy } from '../utils/errors'
-import { formatClock, formatDay, initials, sameDay } from '../utils/format'
+import { formatClock, formatDay, sameDay } from '../utils/format'
 import { renderMessageBody } from '../utils/sanitize'
+import UserAvatar from './UserAvatar.vue'
 
 const props = defineProps<{
   messages: ChatMessage[]
@@ -168,17 +169,12 @@ watch(
             }"
           >
             <span v-if="row.compact" class="msg__avatar-spacer" aria-hidden="true"></span>
-            <span v-else class="avatar msg__avatar">
-              <span class="avatar__fallback">{{ initials(avatarName(row.message)) }}</span>
-              <img
-                v-if="avatarUrl(row.message)"
-                :src="avatarUrl(row.message)"
-                alt=""
-                loading="lazy"
-                referrerpolicy="no-referrer"
-                @error="($event.target as HTMLImageElement).style.display = 'none'"
-              />
-            </span>
+            <UserAvatar
+              v-else
+              class="msg__avatar"
+              :login="avatarName(row.message)"
+              :src="avatarUrl(row.message)"
+            />
 
             <div class="msg__content">
               <div v-if="!row.compact" class="msg__meta">
