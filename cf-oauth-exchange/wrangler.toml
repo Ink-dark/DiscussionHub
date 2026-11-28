@@ -1,0 +1,14 @@
+# GitHub App 认证交换层（Cloudflare Worker）
+# 部署：npx wrangler deploy
+# 可选 secret：npx wrangler secret put GITHUB_CLIENT_SECRET
+name = "gh-im-oauth-exchange"
+main = "worker.js"
+compatibility_date = "2026-11-27"
+
+[vars]
+# 精确填入 Pages 站点的 origin（协议 + 域名 + 端口，不含路径）
+# 项目页 https://<user>.github.io/<repo>/ 的 origin 是 https://<user>.github.io
+ALLOWED_ORIGIN = "https://<user>.github.io"
+# GitHub App 的 Client ID（公开值，由 Worker 注入）
+GITHUB_CLIENT_ID = "Iv23xxxxxxxxxxxxxxxx"
+# GITHUB_CLIENT_SECRET 用 wrangler secret put 注入，不要写在这里
